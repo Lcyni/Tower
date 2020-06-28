@@ -1,84 +1,145 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+public class GameManage : MonoBehaviour
+{
+    private GameObject selectPanel;
+    private GameObject firstPanel;
+    private GameObject nextSelectPanel;
+    public GameObject[] towers;
+    private GameObject selectTower;
+    private Transform basePos;
 
-public class GameManage : MonoBehaviour {
-    private Transform[] wayPoint;//路径数组
-    private GameObject[] enemyArray;//怪物数组
-    private Transform creatPoint;//出生点
-    private int enemyCount;//怪物波数
-    private int enemyNumber;//每波怪物数
-    private float times;//每波间隔
-    private float timer;//一波之中的生成间隔
-    private int count;//剩下怪物数
-    private bool isFinish;//怪物全部生产完了
-    private GameObject gameover;
+    private UIControl script;
+
     void Start()
     {
-        creatPoint = GameObject.Find("CreatPoint").transform;
-        enemyCount = 5;
-        enemyNumber = 5;
-        times = 3;
-        timer = 0.5f;
-        count = 0;
-        StartCoroutine(EnemyIncubator());
-        isFinish = false;
-        gameover = GameObject.Find("UICanvas").transform.GetChild(0).gameObject;
+        selectTower = null;
+        selectPanel = transform.Find("SelectCanvas").gameObject;
+        firstPanel = selectPanel.transform.GetChild(0).gameObject;
+        nextSelectPanel = selectPanel.transform.GetChild(1).gameObject;
+        script = GameObject.Find("UICanvas").GetComponent<UIControl>();
     }
-    public Transform[] GetWayPoint
-    {
-        set { wayPoint = value; }
-        get { return wayPoint;  } 
-    }
-    public int GetCount
-    {
-        set { count = value; }
-        get { return count ; }
-    }
-    public GameObject GetGameOver
-    {
-        set { gameover = value; }
-        get { return gameover ; }
-    }
-    void Awake()
-    {
-        //可以得到的全部子物体的transform组件，但是父物体自己也会被算进来
-        wayPoint = GameObject.Find("EVE").transform.GetChild(0).transform.GetComponentsInChildren<Transform>();
-        enemyArray = Resources.LoadAll<GameObject>("Prefabs/Enemys");
-    }
-	
-	void Update () {
-        Debug.Log("现在的怪物数量:" + count);
-        if (isFinish && 0 == count)
-        {
-            gameover.SetActive(true);
-            gameover.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = "你赢了!";
-            //UnityEditor.EditorApplication.isPaused = true;
-        }
-          
-	}
 
-    private IEnumerator EnemyIncubator()//生产怪物
+
+    void Update()
     {
-        for (int i = 0; i < enemyCount; i++)
+        //  Debug.Log("现在的怪物数量:" + count);
+        //if (isFinish && 0 == count)
+        //{
+        //    gameover.SetActive(true);
+        //    gameover.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = "你赢了!";
+        //    //UnityEditor.EditorApplication.isPaused = true;
+        //}
+        if (Input.GetMouseButtonDown(0))
+            SelectBase();
+    }
+
+
+    private void SelectBase()
+    {
+      
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 200) && EventSystem.current.IsPointerOverGameObject() == false)
         {
-            for (int j = 0; j < enemyNumber; j++)
+
+            if (hit.transform.tag == "TowerBase")//这是个地基，可以创建炮台
             {
-                GameObject.Instantiate(enemyArray[Random.Range(0, enemyArray.Length)],
-                    creatPoint.position, creatPoint.rotation);
-                count++;
-                yield return new WaitForSeconds(timer);
+
+                ShowSelectPanel(hit.transform);
+                basePos = hit.transform;
+                nextSelectPanel.SetActive(false);
             }
-            yield return new WaitForSeconds(times);
         }
-        isFinish = true;
-        StopCoroutine(EnemyIncubator());
     }
 
+    private void ShowSelectPanel(Transform pos)
+    {
+        selectPanel.transform.SetParent(pos, false);
+        selectPanel.transform.localPosition = new Vector3(0, 7, 0);
+        selectPanel.transform.rotation = Quaternion.Euler(90, -2, 0);
+        selectPanel.SetActive(true);
+    }
+    private void InItUI()
+    {
+        selectTower = null;
+        selectPanel.SetActive(false);
+        nextSelectPanel.SetActive(false);
+        firstPanel.SetActive(true);
+    }
+    public void SelecttowerOne(bool isOn)
+    {
+        if (isOn)
+        {
+            selectTower = towers[0];
+          // firstPanel.SetActive(false);
+            nextSelectPanel.SetActive(true);
+        }
+    }
+   
+    public void SelecttowerTwo(bool isOn)
+    {
+        if (isOn)
+        {
+            selectTower = towers[1];
+         //  firstPanel.SetActive(true);
+            nextSelectPanel.SetActive(true);
+        }
+    }
 
+    public void SelecttowerThree(bool isOn)
+    {
+        if (isOn)
+        {
+            selectTower = towers[2];
+            firstPanel.SetActive(false);
+            nextSelectPanel.SetActive(true);
+        }
+    }
+   
+    public void CreateTower()
+    {
+        Debug.Log("创建");
+        if (selectTower != null)
+        {
+            if (!script.Cost(300)) { Debug.Log("金币不足"); return; }
+            GameObject tempTower = Instantiate(selectTower);
+            tempTower.transform.SetParent(basePos, false);
+            tempTower.transform.localPosition = Vector3.up * 2.5f;
 
+            tempTower.AddComponent<TowerAI>();
+            InItUI();
+        }
 
+    }
 
+    public void CellTower()
+    {
+        Debug.Log("出售");
+        if (basePos.childCount >= 2)
+        {
+            Destroy(basePos.GetChild(0).gameObject);
+            InItUI();
+        }
+        else
+        {
+            Debug.Log("目标地基没有炮塔，无法操作！");
+        }
+    }
+   public void CloseAll()
+    {
+        selectPanel.SetActive(false);
+        nextSelectPanel.SetActive(false);
+        firstPanel.SetActive(true);
+    }
 
+    public void CloseNext()
+    {
+        nextSelectPanel.SetActive(false);
+        firstPanel.SetActive(true);
+    }
+  
 }

@@ -6,7 +6,7 @@ public class AudioManage : MonoBehaviour {
     public AudioClip towerAShootClip;
     public AudioClip towerBShootClip;
     public AudioClip towerCShootClip;
-    public AudioClip towerDShootClip;
+  
     void Start () { 
 		
 	}
@@ -24,9 +24,7 @@ public class AudioManage : MonoBehaviour {
             case "C":
                 clip = towerCShootClip;
                 break;
-            case "D":
-                clip = towerDShootClip;
-                break;
+      
         }
         AudioSource.PlayClipAtPoint(clip, pos, volume);
     }

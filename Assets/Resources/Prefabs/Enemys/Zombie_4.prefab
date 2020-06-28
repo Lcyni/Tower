@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400000}
-  - component: {fileID: 114133952089380996}
   - component: {fileID: 95753788999965858}
   - component: {fileID: 136947714458077712}
-  - component: {fileID: 6796341358160394158}
+  - component: {fileID: 6272367098190817713}
+  - component: {fileID: 4288827438911458129}
   m_Layer: 0
   m_Name: Zombie_4
   m_TagString: Enemy
@@ -36,20 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114133952089380996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 2ee432285ec824241b01144c097122f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 3
 --- !u!95 &95753788999965858
 Animator:
   serializedVersion: 3
@@ -60,7 +46,7 @@ Animator:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1062382a0dbbb73499cd5500517f9c6e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 120295677d4c8994fa90291b1f680c09, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -83,7 +69,7 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!195 &6796341358160394158
+--- !u!195 &6272367098190817713
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,7 +78,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.27
+  m_Radius: 0.29
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -101,10 +87,23 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.61
+  m_Height: 1.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4288827438911458129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 2ee432285ec824241b01144c097122f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,7 +435,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100022}
-  m_LocalRotation: {x: 0.7060377, y: -0.033382576, z: 0.033356007, w: 0.7066001}
+  m_LocalRotation: {x: 0.7060377, y: -0.03338258, z: 0.033356007, w: 0.7066002}
   m_LocalPosition: {x: -0.20891905, y: 0, z: 0}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_Children: []
@@ -559,7 +558,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100030}
-  m_LocalRotation: {x: -0.7060377, y: 0.033382576, z: 0.033356007, w: 0.7066001}
+  m_LocalRotation: {x: -0.7060377, y: 0.03338258, z: 0.033356007, w: 0.7066002}
   m_LocalPosition: {x: -0.20891911, y: 0, z: -0.00000011920929}
   m_LocalScale: {x: 1, y: 1.0000001, z: 1.0000001}
   m_Children: []
@@ -651,7 +650,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100036}
-  m_LocalRotation: {x: 0.733791, y: 0.043175086, z: -0.67683166, w: 0.03982182}
+  m_LocalRotation: {x: 0.73379093, y: 0.043175083, z: -0.6768316, w: 0.039821815}
   m_LocalPosition: {x: 0.05218327, y: -0.007524386, z: 0.049974658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -936,7 +935,7 @@ Transform:
   m_GameObject: {fileID: 100054}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.94269025, y: 0.9999998, z: 0.9426901}
+  m_LocalScale: {x: 0.29, y: 0.9999998, z: 0.9426901}
   m_Children: []
   m_Father: {fileID: 400000}
   m_RootOrder: 1

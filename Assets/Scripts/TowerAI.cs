@@ -134,7 +134,7 @@ public class TowerAI : MonoBehaviour {
 
     private void TowerReflet()//炮台的反映(实际做出的攻击动作)
     {
-        Debug.Log(targetEnemy.name);
+       // Debug.Log(targetEnemy.name);
         if (targetEnemy != null)
         {
             if (type == TowerType.NORMAL)//普通炮
@@ -154,7 +154,7 @@ public class TowerAI : MonoBehaviour {
         if (bullet.GetComponent<BulletMove>() == null)
             bullet.AddComponent<BulletMove>();
         bullet.GetComponent<BulletMove>().GetTarget = targetEnemy;
-        audioScirpt.PlayAudioClip(this.tag, firePos.position, 1f);
+         audioScirpt.PlayAudioClip(this.tag, firePos.position, 1f);
     }
     private void CreatLaser()//发射激光
     {

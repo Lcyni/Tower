@@ -30,7 +30,7 @@ public class BulletMove : MonoBehaviour {
                 //掉血
                 Destroy(gameObject);//销毁子弹
                 //Destroy(targetObject);
-                targetObject.GetComponent<EnemyAI>().Damage(90);
+                targetObject.GetComponent<EnemyAI>().Damage(50);
             }
         }
         else
